@@ -14,19 +14,11 @@ Part of the vibe coding SEO and GEO playbook by Natallia P. Jarl: https://natall
 - If the user is in a project folder, look for the built output (for example `dist/`, `build/`, `out/`, `public/` or the folder with `index.html`). If the site is a JavaScript app that only builds in the browser, build it or use its static export first, and tell the user that this matters (see the "JavaScript only" item in the checklist).
 - If the site is live, use its URL.
 
-## Step 2: run the automated check
+## Step 2: run the checks
 
-Run the script that comes with this skill (Python 3, no extra packages):
+Work through `references/checks.md`. For a live site, fetch each page and read the raw HTML (not a rendered view), plus `/robots.txt`, `/sitemap.xml`, `/llms.txt` and a made-up address to test the 404. For a folder, read the files directly; ask for the real domain so canonicals and the sitemap can be checked against it.
 
-```bash
-python3 scripts/audit.py <site-folder-or-url>
-```
-
-Use the path to `scripts/audit.py` inside this skill's folder. Add `--base https://example.com` for a folder, so canonicals and the sitemap can be checked against the real domain. Add `--max-pages 50` to check more pages (default 30).
-
-The script checks every page for title, description, one H1, canonical, language, alt text, image sizes, social preview, noindex, structured data and whether the text is in the HTML. It checks the site for robots.txt (including AI search bots), sitemap.xml, llms.txt and a real 404 page. It prints a score per step and a list of issues sorted by impact.
-
-If the script cannot run (no Python, no network), do the same checks by reading the files yourself, and say so.
+The checks cover every page (title, description, one H1, canonical, language, alt text, image sizes, social preview, noindex, structured data, text in the HTML) and the site (robots.txt including AI search bots, sitemap.xml, llms.txt, a real 404 page, https). Score each step with the weights in `references/checks.md` and list the issues by impact.
 
 ## Step 3: check what code cannot
 
@@ -50,7 +42,7 @@ Do not change any file yet. Ask which fixes to make.
 
 ## Step 5: fix and re-check
 
-Make only the fixes the user approves. Never remove existing SEO tags, structured data or redirects without asking. After fixing, run the script again and show the before and after score.
+Make only the fixes the user approves. Never remove existing SEO tags, structured data or redirects without asking. After fixing, run the checks again and show the before and after score.
 
 ## Tone
 
