@@ -1,0 +1,13 @@
+{
+  "name": "vibe-coding-seo-geo",
+  "description": "SEO and GEO playbook for AI-built websites: brief Claude before it builds, run a pre-launch check, get a plain-language fix list.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Natallia P. Jarl",
+    "url": "https://natalliajarl.com"
+  },
+  "homepage": "https://natalliajarl.com/ai-playbooks/vibe-coding-seo/",
+  "repository": "https://github.com/gitnat/vibe-coding-seo-geo-playbook",
+  "license": "MIT",
+  "keywords": ["seo", "geo", "aeo", "vibe-coding", "ai-search", "llms-txt", "website-audit"]
+}

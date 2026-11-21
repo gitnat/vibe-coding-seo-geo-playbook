@@ -1,0 +1,15 @@
+{
+  "name": "natalliajarl",
+  "description": "AI playbooks by Natallia P. Jarl, SEO & GEO Lead and AI Systems Builder",
+  "owner": {
+    "name": "Natallia P. Jarl",
+    "url": "https://natalliajarl.com"
+  },
+  "plugins": [
+    {
+      "name": "vibe-coding-seo-geo",
+      "source": "./plugins/vibe-coding-seo-geo",
+      "description": "Brief Claude on SEO and GEO before it builds, and check your AI-built site before launch so Google and AI assistants can find it."
+    }
+  ]
+}
