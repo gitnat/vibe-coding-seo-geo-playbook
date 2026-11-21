@@ -114,17 +114,47 @@ def ld_types(raw_list):
 
 
 # ---------- fetching ----------
+def _ssl_context():
+    """Python on macOS often ships without root certificates. Fall back to certifi or a system bundle."""
+    import ssl
+    ctx = ssl.create_default_context()
+    if ctx.cert_store_stats().get("x509_ca", 0):
+        return ctx
+    try:
+        import certifi
+        return ssl.create_default_context(cafile=certifi.where())
+    except Exception:
+        pass
+    for path in ("/etc/ssl/cert.pem", "/etc/ssl/certs/ca-certificates.crt", "/usr/local/etc/openssl/cert.pem", "/opt/homebrew/etc/openssl@3/cert.pem"):
+        if os.path.isfile(path):
+            return ssl.create_default_context(cafile=path)
+    return ctx
+
+SSL_CTX = None
+LAST_ERROR = ""
+
 def fetch(url, timeout=15):
+    global SSL_CTX, LAST_ERROR
+    if SSL_CTX is None:
+        SSL_CTX = _ssl_context()
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
+        with urllib.request.urlopen(req, timeout=timeout, context=SSL_CTX) as r:
             body = r.read(3_000_000)
             cs = r.headers.get_content_charset() or "utf-8"
             return r.status, body.decode(cs, "replace"), r.geturl(), r.headers.get("Content-Type", "")
     except urllib.error.HTTPError as e:
         return e.code, "", url, ""
-    except Exception:
+    except Exception as e:
+        LAST_ERROR = str(getattr(e, "reason", e))
         return None, "", url, ""
+
+
+def norm(u):
+    """One form per page: no fragment, path '/' when empty, no index.html, lowercase host."""
+    pr = urllib.parse.urlparse(u.split("#")[0])
+    path = re.sub(r"(^|/)index\.html?$", r"\1", pr.path or "/") or "/"
+    return urllib.parse.urlunparse((pr.scheme, pr.netloc.lower(), path, "", pr.query, ""))
 
 
 def collect_folder(root, base, max_pages):
@@ -159,7 +189,11 @@ def collect_url(start, max_pages):
     start = start if re.match(r"https?://", start) else "https://" + start
     status, body, final, _ = fetch(start)
     if status is None:
-        sys.exit(f"Could not reach {start}. Check the URL or your network.")
+        hint = ""
+        if "CERTIFICATE" in LAST_ERROR.upper():
+            hint = ("\nPython could not verify the site's SSL certificate. On macOS, run 'Install Certificates.command' "
+                    "in your Python folder, or 'pip install certifi', then try again.")
+        sys.exit(f"Could not reach {start} ({LAST_ERROR or 'no response'}).{hint}")
     host = urllib.parse.urlparse(final).netloc
     origin = f"{urllib.parse.urlparse(final).scheme}://{host}"
     rs, robots, _, _ = fetch(origin + "/robots.txt")
@@ -176,13 +210,18 @@ def collect_url(start, max_pages):
     nf, _, _, _ = fetch(origin + "/this-page-should-not-exist-404-check")
     pages, seen = [], set()
     while queue and len(pages) < max_pages:
-        u = queue.popleft().split("#")[0]
+        u = norm(queue.popleft())
         if u in seen:
             continue
         seen.add(u)
-        s, b, fu, ct = (status, body, final, "text/html") if u == final and not pages else fetch(u)
+        s, b, fu, ct = (status, body, final, "text/html") if u == norm(final) and not pages else fetch(u)
         if s != 200 or ("html" not in ct.lower() and ct):
             continue
+        fu = norm(fu)
+        if fu != u:
+            if fu in seen and any(p["url"] == fu for p in pages):
+                continue  # a redirect to a page we already have
+            seen.add(fu)
         path = urllib.parse.urlparse(fu).path or "/"
         pages.append({"path": path, "url": fu, "html": b})
         if not sitemap_txt:
