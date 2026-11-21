@@ -11,6 +11,8 @@ Made by [Natallia P. Jarl](https://natalliajarl.com), SEO & GEO Lead and AI Syst
 
 ![The SEO and GEO checklist for AI-built websites](assets/seo-geo-checklist.png)
 
+If it helps your site, a ⭐ on this repo helps other people find it too.
+
 ## Install
 
 ### Claude Code (plugin)
