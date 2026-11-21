@@ -1,5 +1,6 @@
 {
   "name": "vibe-coding-seo-geo",
+  "displayName": "Vibe Coding SEO & GEO Playbook",
   "description": "SEO and GEO playbook for AI-built websites: brief Claude before it builds, run a pre-launch check, get a plain-language fix list.",
   "version": "1.0.1",
   "author": {
@@ -19,5 +20,7 @@
     "website-audit",
     "lovable",
     "cursor"
-  ]
+  ],
+  "documentationUrl": "https://github.com/gitnat/vibe-coding-seo-geo-playbook#readme",
+  "supportUrl": "https://github.com/gitnat/vibe-coding-seo-geo-playbook/issues"
 }
