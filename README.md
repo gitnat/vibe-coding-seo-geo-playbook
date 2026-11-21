@@ -1,6 +1,6 @@
 # Vibe coding SEO and GEO playbook
 
-**A Claude skill that makes your AI-built website findable on Google and in AI assistants like ChatGPT, Gemini and Perplexity.**
+**Make your AI-built website findable on Google and in AI assistants like ChatGPT, Gemini and Perplexity. Works with Claude, Cursor, Codex, Lovable, Bolt and v0.**
 
 AI can build a good-looking website in an afternoon. Whether anyone finds it depends on things AI tools usually skip unless you ask. This playbook does two things:
 
@@ -28,9 +28,24 @@ Then start a session and run `/vibe-coding-seo-geo:seo-geo-brief` before you bui
 2. In Claude, go to **Customize > Skills**, click **+**, then **Create skill > Upload a skill**, and upload each ZIP.
 3. Skills need code execution, so check that it is turned on in your settings.
 
-### Any other agent
+### Cursor, Codex, GitHub Copilot and other coding agents
 
-Each skill is a plain folder with a `SKILL.md` under [`plugins/vibe-coding-seo-geo/skills/`](plugins/vibe-coding-seo-geo/skills/). Copy it into your agent's skills folder.
+Each skill is a plain folder with a `SKILL.md` under [`plugins/vibe-coding-seo-geo/skills/`](plugins/vibe-coding-seo-geo/skills/), in the open Agent Skills format. Copy both folders into your agent's skills folder.
+
+### Built with Lovable, Bolt or v0?
+
+These builders do not install skills, but the playbook still works:
+
+1. **Before you build:** copy the [rules file](plugins/vibe-coding-seo-geo/skills/seo-geo-brief/references/rules-file.md), fill in your domain and name, and paste it into your project's knowledge or custom instructions. Every page is then built by the rules.
+2. **Before you launch:** run the audit on your live or preview URL:
+
+   ```bash
+   python3 plugins/vibe-coding-seo-geo/skills/seo-geo-audit/scripts/audit.py https://your-site.lovable.app
+   ```
+
+3. **Watch the first issue.** These tools usually build JavaScript apps, where the text loads in the browser. If the audit says "little or no text in the HTML", ask the builder for static or server-side rendering (prerendering), because most AI crawlers do not run JavaScript.
+
+No Python? Paste the [checklist](plugins/vibe-coding-seo-geo/skills/seo-geo-audit/references/checklist.md) into your builder's chat and ask it to check your site against each item.
 
 ## What the audit checks
 

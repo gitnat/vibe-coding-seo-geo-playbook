@@ -9,5 +9,15 @@
   "homepage": "https://natalliajarl.com/ai-playbooks/vibe-coding-seo/",
   "repository": "https://github.com/gitnat/vibe-coding-seo-geo-playbook",
   "license": "MIT",
-  "keywords": ["seo", "geo", "aeo", "vibe-coding", "ai-search", "llms-txt", "website-audit"]
+  "keywords": [
+    "seo",
+    "geo",
+    "aeo",
+    "vibe-coding",
+    "ai-search",
+    "llms-txt",
+    "website-audit",
+    "lovable",
+    "cursor"
+  ]
 }
