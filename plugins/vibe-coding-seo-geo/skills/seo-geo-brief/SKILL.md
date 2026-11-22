@@ -7,7 +7,7 @@ description: Use before building, rebuilding or redesigning a website with AI (v
 
 AI builds what it is told. Asking it to "add some SEO" at the end gives vague results and means touching every page again. This skill sets the rules first, so every page you create follows them.
 
-Part of the vibe coding SEO and GEO playbook by Natallia P. Jarl: https://natalliajarl.com/ai-playbooks/vibe-coding-seo/
+Part of the vibe coding SEO and GEO playbook by Natallia Jarl: https://natalliajarl.com/ai-playbooks/vibe-coding-seo/
 
 ## Step 1: ask four short questions
 

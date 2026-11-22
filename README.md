@@ -7,7 +7,7 @@ AI can build a good-looking website in an afternoon. Whether anyone finds it dep
 1. **Brief Claude before it builds** (`seo-geo-brief`): plans keywords and site structure with you, then writes SEO and GEO rules into your project, so every page is built right from the first line of code.
 2. **Check before you launch** (`seo-geo-audit`): runs an audit on your site folder or live URL and gives you a score per step and a plain-language fix list, biggest impact first. It changes nothing until you say yes.
 
-Made by [Natallia P. Jarl](https://natalliajarl.com), SEO & GEO Lead and AI Systems Builder. The full playbook, checklist and PDF guide: **[natalliajarl.com/ai-playbooks/vibe-coding-seo](https://natalliajarl.com/ai-playbooks/vibe-coding-seo/)**
+Made by [Natallia Jarl](https://natalliajarl.com), SEO & GEO Lead and AI Systems Builder. The full playbook, checklist and PDF guide: **[natalliajarl.com/ai-playbooks/vibe-coding-seo](https://natalliajarl.com/ai-playbooks/vibe-coding-seo/)**
 
 ![The SEO and GEO checklist for AI-built websites](assets/seo-geo-checklist.png)
 
