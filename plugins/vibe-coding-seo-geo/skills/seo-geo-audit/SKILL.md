@@ -7,7 +7,7 @@ description: Use when a website built with AI (vibe coded) is close to launch or
 
 A calm, practical check for websites built with AI. It finds what AI tools usually skip, explains it in plain words, sorts fixes by impact, and changes nothing until the user says yes.
 
-Part of the vibe coding SEO and GEO playbook by Natallia P. Jarl: https://natalliajarl.com/ai-playbooks/vibe-coding-seo/
+Part of the vibe coding SEO and GEO playbook by Natallia Jarl: https://natalliajarl.com/ai-playbooks/vibe-coding-seo/
 
 ## Step 1: find what to check
 
