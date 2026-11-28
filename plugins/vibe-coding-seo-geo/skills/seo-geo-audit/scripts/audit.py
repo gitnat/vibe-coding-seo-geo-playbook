@@ -38,9 +38,18 @@ class PageParser(HTMLParser):
         self.text = []
         self._skip = 0
         self._ld = None
+        self.heads = []          # H2/H3 text
+        self._head = None
+        self.glued = []          # "word|Word" pairs that touch across tags
+        self._prev, self._ws, self._crossed = None, True, False
 
     def handle_starttag(self, tag, attrs):
         a = {k.lower(): (v or "") for k, v in attrs}
+        self._crossed = True
+        if tag == "br":
+            self._ws = True
+        if tag in ("h2", "h3") and not self._skip:
+            self._head = ""
         if tag == "html":
             self.lang = a.get("lang")
         elif tag == "title":
@@ -66,6 +75,9 @@ class PageParser(HTMLParser):
             self._skip += 1
 
     def handle_endtag(self, tag):
+        self._crossed = True
+        if tag in ("h2", "h3") and self._head is not None:
+            self.heads.append(re.sub(r"\s+", " ", self._head).strip()); self._head = None
         if tag == "title":
             self.in_title = False
         elif tag == "script":
@@ -83,9 +95,31 @@ class PageParser(HTMLParser):
             self.title += data; return
         if not self._skip:
             self.text.append(data)
+            if self._head is not None:
+                self._head += data
+            if not data.strip():
+                self._ws = True
+                return
+            if (self._crossed and self._prev and not self._ws and not data[0].isspace()
+                    and self._prev == self._prev.rstrip()
+                    and re.search(r"[\w)\]?!.:%]$", self._prev) and re.match(r"[\w(\"“']", data)):
+                self.glued.append(self._prev.strip()[-20:] + "|" + data.strip()[:20])
+            self._prev, self._ws, self._crossed = data, data[-1].isspace(), False
 
     def words(self):
         return len(re.findall(r"\w{2,}", " ".join(self.text)))
+
+
+GENERIC_HEADINGS = {"about", "about us", "about me", "services", "features", "benefits", "overview", "introduction", "intro",
+    "how it works", "all you need", "what you need", "see it in action", "get in touch", "contact", "contact us", "faq", "faqs",
+    "questions", "questions people ask", "frequently asked questions", "pricing", "resources", "learn more", "read more", "more",
+    "next steps", "summary", "conclusion", "welcome", "why", "why us", "our story", "my story", "the checklist", "prompts",
+    "before launch", "after launch", "the problem", "the solution", "testimonials", "blog", "news"}
+
+
+def is_generic(h):
+    t = re.sub(r"^[\d\s.:)#-]+", "", h).strip(" ?!.:").lower()
+    return t in GENERIC_HEADINGS
 
 
 def ld_types(raw_list):
@@ -332,6 +366,12 @@ def audit(pages, site, base):
                "Alt text describes images for search, AI and people using screen readers.", "Describe each meaningful image. Use alt=\"\" only for decoration.")
     page_check(2, 1, 1, "og", lambda p: p["pp"].meta.get("og:title") and p["pp"].meta.get("og:image"), "{n} page(s) without a social preview",
                "Without Open Graph tags, shared links look plain or broken.", "Add og:title, og:description, og:image and og:url.")
+    page_check(2, 1, 1, "headings", lambda p: not [h for h in p["pp"].heads if is_generic(h)],
+               "{n} page(s) with generic headings", "Headings like 'How it works' or 'FAQ' say nothing on their own, so search engines and AI answers cannot tell what the section covers.",
+               "Name the topic in each H2 and H3 with the words people search for, for example 'How the grocery dashboard works'.")
+    page_check(2, 1, 2, "glued", lambda p: not p["pp"].glued, "{n} page(s) where words run together in the text",
+               "Crawlers, AI tools and screen readers read the text without CSS, so <b>Calm</b>Soft becomes 'CalmSoft' and numbers glue to titles ('01Why').",
+               "Put a space or line break between a label and the text after it, and between links, list items and spans. Keep section numbers out of heading text.")
 
     # Step 3
     page_check(3, 3, 3, "js_only", lambda p: p["pp"].words() >= 80, "{n} page(s) with little or no text in the HTML",

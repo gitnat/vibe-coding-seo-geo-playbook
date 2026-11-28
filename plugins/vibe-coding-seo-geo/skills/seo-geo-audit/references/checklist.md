@@ -20,6 +20,8 @@ Why: each page is a separate entry in Google and in AI answers. Without its own 
 - Its own title (under about 60 characters, topic first, brand last)
 - A short description (140 to 160 characters, written for a person)
 - One main heading (H1), then H2 and H3 in order
+- Headings that say what the section is about, with the words people search for (not "How it works")
+- No words running together in the page text (a space between every label and the text after it)
 - Main address set (canonical, full https URL on the real domain)
 - Page language set (`lang` on the html tag)
 - Image descriptions (alt text), empty only for decoration

@@ -46,7 +46,7 @@ Add the confirmed page plan from Step 2 under a heading `## Site plan` in the sa
 
 ## Step 4: build by the rules
 
-From now on, every page you create or change follows the rules file. Before saying a page is done, list its title, meta description, H1 and canonical so the user can check them.
+From now on, every page you create or change follows the rules file. Before saying a page is done, list its title, meta description, H1, H2s and canonical so the user can check them, and check that no words run together in the page text.
 
 When the site is close to launch, suggest running the `seo-geo-audit` skill.
 

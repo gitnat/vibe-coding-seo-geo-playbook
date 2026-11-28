@@ -24,7 +24,7 @@ python3 scripts/audit.py <site-folder-or-url>
 
 Use the path to `scripts/audit.py` inside this skill's folder. Add `--base https://example.com` for a folder, so canonicals and the sitemap can be checked against the real domain. Add `--max-pages 50` to check more pages (default 30).
 
-The script checks every page for title, description, one H1, canonical, language, alt text, image sizes, social preview, noindex, structured data and whether the text is in the HTML. It checks the site for robots.txt (including AI search bots), sitemap.xml, llms.txt and a real 404 page. It prints a score per step and a list of issues sorted by impact.
+The script checks every page for title, description, one H1, canonical, language, alt text, image sizes, social preview, noindex, structured data, whether the text is in the HTML, generic headings and words that run together in the text. It checks the site for robots.txt (including AI search bots), sitemap.xml, llms.txt and a real 404 page. It prints a score per step and a list of issues sorted by impact.
 
 If the script cannot run (no Python, no network), do the same checks by reading the files yourself, and say so.
 
