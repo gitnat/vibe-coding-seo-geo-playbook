@@ -25,6 +25,8 @@ Each check has a weight (W) and an impact (High, Medium, Low). For page checks, 
 | Language | 1 | Low | `<html lang="...">` is set |
 | Alt text | 2 | Medium | Every `<img>` has an `alt` attribute (`alt=""` is fine for decoration) |
 | Social preview | 1 | Low | `og:title` and `og:image` are set |
+| Specific headings | 1 | Low | No H2 or H3 is only a generic phrase such as About, Services, Features, How it works, All you need, See it in action, Get in touch, Contact, FAQ, Questions people ask, Before launch (ignore a leading number). Headings should name their topic |
+| No glued text | 1 | Medium | In the text without CSS (raw HTML text), no word ends right where the next text starts across a tag, for example `<b>Calm</b>Soft` read as "CalmSoft", `<a>Story</a><a>Work</a>` read as "StoryWork", or a section number glued to its title ("01Why") |
 
 ## Step 3: Fix the technical basics
 

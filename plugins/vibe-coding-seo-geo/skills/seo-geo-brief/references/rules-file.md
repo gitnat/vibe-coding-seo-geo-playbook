@@ -22,6 +22,12 @@ EVERY PAGE
 - Short, lowercase URLs with hyphens.
 - Descriptive link text, never "click here". Link related pages to each other.
 
+HEADINGS AND TEXT
+- Every H2 and H3 names its topic with the words people search for, and makes sense on its own. Not "How it works" but "How the grocery dashboard works". Not "Questions people ask" but "Questions about vibe coding SEO".
+- No generic headings on their own: About, Services, Features, How it works, Get in touch, FAQ. Add what it is about.
+- Section numbers and icons are decoration. Draw them with CSS, keep them out of the heading text.
+- Words must never run together in the HTML text. Put a space or line break between a label and the text after it, and between links, list items, buttons and spans: <b>Calm</b> Soft colours, not <b>Calm</b>Soft colours. Crawlers, AI tools and screen readers read the text without your CSS.
+
 IMAGES AND SPEED
 - Descriptive alt text on every image that carries meaning. Empty alt only for decoration.
 - Width and height on every image. Compress images and lazy-load the ones below the fold.
@@ -45,7 +51,8 @@ GEO
 - Show the author and a last updated date on articles and guides.
 
 BEFORE YOU SAY DONE
-- List every page with its title, description, H1 and canonical so I can check them.
+- List every page with its title, description, H1, H2s and canonical so I can check them.
+- Read each page's text with the CSS turned off (for example document.body.textContent) and fix any words that run together.
 - Check the layout at 375 px wide and on desktop.
 - Never remove existing SEO tags, structured data or redirects without asking me.
 ```

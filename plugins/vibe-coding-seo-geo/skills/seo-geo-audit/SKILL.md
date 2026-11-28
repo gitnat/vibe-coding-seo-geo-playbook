@@ -18,7 +18,7 @@ Part of the vibe coding SEO and GEO playbook by Natallia Jarl: https://natalliaj
 
 Work through `references/checks.md`. For a live site, fetch each page and read the raw HTML (not a rendered view), plus `/robots.txt`, `/sitemap.xml`, `/llms.txt` and a made-up address to test the 404. For a folder, read the files directly; ask for the real domain so canonicals and the sitemap can be checked against it.
 
-The checks cover every page (title, description, one H1, canonical, language, alt text, image sizes, social preview, noindex, structured data, text in the HTML) and the site (robots.txt including AI search bots, sitemap.xml, llms.txt, a real 404 page, https). Score each step with the weights in `references/checks.md` and list the issues by impact.
+The checks cover every page (title, description, one H1, canonical, language, alt text, image sizes, social preview, noindex, structured data, text in the HTML, generic headings, words that run together) and the site (robots.txt including AI search bots, sitemap.xml, llms.txt, a real 404 page, https). Score each step with the weights in `references/checks.md` and list the issues by impact.
 
 ## Step 3: check what code cannot
 
